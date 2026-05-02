@@ -21,7 +21,9 @@ public class ReverseOfNumber
         if (numberToReverse <= 0)
             Console.WriteLine("Please enter valid number");
 
-        int reversedNumber = 0;
+        else
+        {
+               int reversedNumber = 0;
         while (numberToReverse != 0)   //12345<=0
         {
             int lastDigit = numberToReverse % 10;   //5
@@ -29,5 +31,7 @@ public class ReverseOfNumber
             reversedNumber = lastDigit + 10 * reversedNumber;   //5+10*0=5
         }
         Console.WriteLine("Reverse of number is: " + reversedNumber);
+        }
+     
     }
 }

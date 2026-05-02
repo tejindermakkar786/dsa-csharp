@@ -23,5 +23,11 @@
 // Palindrome palindrome = new();
 // palindrome.Print();
 
-FizzBuzz fizzBuzz = new();
-fizzBuzz.Print();
+// FizzBuzz fizzBuzz = new();
+// fizzBuzz.Print();
+
+// StringBasics stringBasics=new StringBasics();
+// stringBasics.print();
+
+Vowels vowels=new Vowels();
+vowels.PrintVowelCount();
