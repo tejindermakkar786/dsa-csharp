@@ -21,6 +21,7 @@ public class FizzBuzz
         if (number <= 0 || number > 100)
         {
             Console.WriteLine("Please enter valid number");
+            return ;
         }
 
         string status = string.Empty;

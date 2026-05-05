@@ -21,6 +21,7 @@ public class PrimeNumber
         if (number <= 0)
         {
             Console.WriteLine("Please enter valid number.");
+            return ;
         }
 
         for (int i = 2; i < number; i++)

@@ -22,6 +22,7 @@ public class Palindrome
         if (number <= 0)
         {
             Console.WriteLine("Please enter valid number");
+            return ;
         }
 
         int numberToCheck = number;
