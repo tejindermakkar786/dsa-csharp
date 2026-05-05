@@ -1,71 +1,41 @@
-# 180 Day MAANG Preparation Journal
-
----
-
-## Day 1 — Arrays + Big O Notation
+## Day 1 — Big O Notation + Arrays
 **Date:** 01-05-2026
 
----
+### Concepts Covered
+| Concept | Understanding |
+|---|---|
+| O(1) | Direct memory jump using `base_address + (index * bytes)` |
+| O(n) | Single loop — operations grow with input |
+| O(n²) | Nested loops on same input |
+| O(log n) | Halves problem each step — Binary Search (Week 3) |
+| O(d) | Loop runs once per digit — Reverse, Sum of Digits |
+| O(n*m) | Two loops on different sized inputs |
 
-### What I Learned
+**Key Insight:** Big O always measures worst case.
+Index access is O(1) because the address is mathematically calculable.
+Search is O(n) because there is no address to jump to.
 
-**Big O Notation**
-Time complexity measures how many operations a program
-performs as input size grows. Big O always measures worst case.
+**Space Complexity Rule:**
+Single variables = O(1). New array = O(n). Ask: does it grow with input?
 
-| Notation | Name | When |
-|---|---|---|
-| O(1) | Constant | Direct access, no loop |
-| O(n) | Linear | Single loop through input |
-| O(n²) | Quadratic | Loop inside a loop on same input |
-| O(log n) | Logarithmic | Halves problem each step |
-| O(d) | Digits | Loop runs once per digit |
-| O(n*m) | Two different inputs | Two loops on different sized inputs |
-
-**Why index access is O(1) but search is O(n):**
-Index access uses formula: `base_address + (index * bytes)`
-Jumps directly to memory address. One operation always.
-Search has no address to jump to. Must check every element.
-
-**Space Complexity:**
-Measures extra memory created that grows with input.
-Single variables = O(1). New array same size as input = O(n).
-Ask: did I create anything that grows with input size?
-
-**Arrays:**
-Contiguous block of memory. Each element at a fixed address.
-That is why index access is O(1).
-
-**Edge Cases:**
+**Edge Case Rule:**
 Always check empty input before accessing index 0.
-Empty array does not remove complexity — loop just runs 0 times.
 
-**For Loop Update Timing:**
-Update runs AFTER the loop body.
-If body modifies variables that update uses — update sees new values.
-Rule: use for loop for fixed count. Use while loop for value condition.
+**Bug Found:** For loop update runs AFTER body.
+Variables modified in body are seen by update expression.
+Fix: use while loop for value-based stopping conditions.
 
----
+### Built
+- `BigONotation.cs` — O(1) O(n) O(n²) examples with complexity labels
+- `ArrayBasics.cs` — find largest, empty array edge case
 
-### What I Built — Block 2
-`concepts/ConceptFoundation/BigO/BigONotation.cs`
-`concepts/ConceptFoundation/Arrays/ArrayBasics.cs`
+### Practiced
+Find largest number in array.
+`Time: O(n) | Space: O(1)`
 
-- O(1), O(n), O(n²) examples in code
-- Find largest number — O(n) time O(1) space
-- Empty array edge case handled
+### Pre-Plan Exercises Completed (7 programs, all under 5 mins from memory)
 
----
-
-### What I Practiced — Block 3
-Find the largest number in an array.
-Time: O(n) — one pass. Space: O(1) — one tracker variable.
-
----
-
-### Pre-Plan Exercises — Completed Before Day 1
-
-| # | Exercise | Pattern | Time | Space |
+| # | Program | Pattern | Time | Space |
 |---|---|---|---|---|
 | 1 | Fibonacci | Variable rotation | O(n) | O(1) |
 | 2 | Factorial | Accumulator | O(n) | O(1) |
@@ -75,158 +45,183 @@ Time: O(n) — one pass. Space: O(1) — one tracker variable.
 | 6 | Sum of Digits | Mod + divide + add | O(d) | O(1) |
 | 7 | Palindrome | Reverse + compare | O(d) | O(1) |
 
----
-
-### What Clicked
-- Memory address formula explains why O(1) access works
-- Big O measures worst case not best case
-- O(d) is same idea as O(n) — different letter for clarity
-- For loop update runs after body — can cause timing bugs
-
-### What Is Still Unclear
-- O(log n) — concept understood, will feel it properly
-  when Binary Search arrives Week 3
-
-### Freeze Moments
-None today.
+**Freeze Moments:** 0
 
 ---
 
 ## Day 2 — Strings in C#
 **Date:** 02-05-2026
 
----
+### Concepts Covered
 
-### What I Learned
+**String = char array underneath.**
+`"hello"[0]` is `'h'` — all array thinking applies.
 
-**String basics:**
-A string is an array of characters underneath.
-`"hello"[0]` is `'h'` — same as array index access.
-That is why all array thinking applies to strings.
-
-**How to access the 3rd character of a string:**
-Two ways:
-
-```csharp
-// Way 1 — direct index access (immutable)
-char c = str[2];
-
-// Way 2 — convert to char array first (mutable)
-char[] chars = str.ToCharArray();
-char c = chars[2];
-chars[2] = 'X'; // now you can modify it
-```
-
-Key difference: direct index access keeps the string immutable.
-ToCharArray creates a new mutable char array you can modify.
-
-**What does ToCharArray() return?**
-Returns a new `char[]` containing every character of the string.
-The array is independent — modifying it does not change the original string.
-
-**What does ToLower() do and why is it used in problems?**
-Converts all characters to lowercase.
-Used in problems when comparing characters regardless of case.
-Instead of checking both `'A'` and `'a'` — convert first, check once.
-
-```csharp
-char lower = char.ToLower(c);
-// now only need to check lowercase version
-```
-
-**String immutability — why can you not do word[0] = 'H'?**
-When a string is assigned — it gets a fixed memory address.
-Any modification does not change the original string.
-C# creates a new string object in memory instead.
-This is why `word[0] = 'H'` does not compile — strings are read-only.
-
-To modify characters: convert to `char[]` with `ToCharArray()`,
-modify the array, then convert back with `new string(chars)`.
-
-```csharp
-string word = "hello";
-char[] chars = word.ToCharArray();
-chars[0] = 'H';
-string modified = new string(chars); // "Hello"
-// word is still "hello" — unchanged
-```
-
----
-
-### What I Built — Block 2
-`concepts/ConceptFoundation/Strings/StringBasics.cs`
-
-- Accessed characters using direct index and ToCharArray
-- Demonstrated immutability — original string unchanged after modification
-- Used ToLower, ToUpper, Contains, Length
-- Converted char array back to string using new string(chars)
-
----
-
-### What I Practiced — Block 3
-**Count vowels in a string — written 3 versions**
-
-**Version 1 — Contains (original)**
-```csharp
-string vowels = "aeiouAEIOU";
-if (vowels.Contains(userInput[i])) count++;
-```
-Time: O(n * m) — n = sentence length, m = vowels string length (10)
-Contains hides an internal loop searching through vowels string.
-
-**Version 2 — if/else with ToLower**
-```csharp
-char lower = char.ToLower(userInput[i]);
-if (lower == 'a' || lower == 'e' || lower == 'i' ||
-    lower == 'o' || lower == 'u') count++;
-```
-Time: O(n * 5) → constant ignored → O(n)
-No hidden loop. Direct comparisons only. ToLower reduces 10 conditions to 5.
-
-**Version 3 — Manual nested loop**
-```csharp
-for (int j = 0; j < 10; j++) {
-    if (vowels[j] == userInput[i]) {
-        count++;
-        break; // stop after first match
-    }
-}
-```
-Time: O(n * 10) → constant ignored → O(n)
-Makes the hidden Contains loop explicit and visible.
-break added — stops checking once a match is found.
-
-**Complexity comparison:**
-
-| Version | Raw complexity | Simplified |
+| Operation | Method | Complexity |
 |---|---|---|
-| Contains | O(n * m) | O(n * 10) = O(n) here because m=10 is fixed |
-| if/else | O(n * 5) | O(n) |
-| Nested loop | O(n * 10) | O(n) |
+| Access character | `str[i]` | O(1) |
+| Convert to mutable | `ToCharArray()` | O(n) time + O(n) space |
+| Convert back | `new string(chars)` | O(n) |
+| Case conversion | `char.ToLower(c)` | O(1) per char |
+| Iterate without array | `foreach (char c in str)` | O(n) time, O(1) space |
 
-**Key insight discovered:**
-If BOTH loops run on the same input size → O(n²)
-If loops run on DIFFERENT input sizes → O(n * m)
-In all 3 versions the inner part runs on a fixed size (10 or 5)
-so constants are ignored and all three are effectively O(n).
+**Immutability:**
+Strings cannot be modified in place. `word[0] = 'H'` does not compile.
+Modification creates a new string object in memory.
+Pattern: `ToCharArray()` → modify → `new string(chars)`.
+
+**Hidden Space Cost:**
+`ToCharArray()` creates new array same size as string → O(n) space.
+Iterating directly on string → O(1) space.
+Rule: only use `ToCharArray()` when modification is needed.
+
+### Built
+- `StringBasics.cs` — immutability demo, ToLower, ToUpper, ToCharArray
+
+### Practiced — Vowel Count (3 versions)
+
+| Version | Approach | Time | Space |
+|---|---|---|---|
+| Contains | `vowels.Contains(c)` | O(n*m) | O(1) |
+| if/else + ToLower | Direct comparisons | O(n) | O(1) |
+| Nested loop + break | Manual Contains | O(n*10)=O(n) | O(1) |
+| Best version | foreach on string directly | O(n) | O(1) |
+
+**Key Insight:** `Contains()` hides a loop inside it.
+`O(n*m)` when m is variable. `O(n)` when m is fixed constant.
+
+**Freeze Moments:** 0
 
 ---
 
-### What Clicked
-- String is just a char array — same mental model as arrays
-- Immutability means modification creates new object in memory
-- ToCharArray pattern: convert → modify → convert back
-- Contains hides a loop — O(n*m) not O(n)
-- When inner loop is fixed size — constant is ignored → O(n)
-- O(n²) only when BOTH loops grow with the same input size
+## Day 3 — Dictionary (HashMap) in C#
+**Date:** [add date]
 
-### What Is Still Unclear
-- Nothing unclear today — all concepts clicked
+### Concepts Covered
 
-### Freeze Moments
-None today.
+**What is a Dictionary?**
+Stores key-value pairs. Key chosen by developer — always known at lookup time.
+That is why Dictionary is practically O(1) in real problems.
 
-### Tomorrow — Day 3
-Dictionary in C#.
-Going in knowing: Dictionary gives O(1) lookup by key.
-This is the data structure that makes Two Sum O(n) instead of O(n²).
+| Operation | Method | Complexity |
+|---|---|---|
+| Add or update | `dict[key] = value` | O(1) |
+| Check existence | `ContainsKey(key)` | O(1) |
+| Check + get value | `TryGetValue(key, out val)` | O(1) — one operation |
+| Get or default | `GetValueOrDefault(key)` | O(1) — returns 0/null if missing |
+| Remove | `dict.Remove(key)` | O(1) |
+| Iterate | `foreach (var kv in dict)` | O(n) |
+
+**Why O(1)?**
+Hashing converts key to a number → maps to memory address → direct jump.
+Same concept as array: `base_address + (index * bytes)`.
+
+**O(1) only when key is known:**
+Array:      O(1) access if you know the index
+Dictionary: O(1) access if you know the key
+Both:       O(n) search if you do not know where to look
+
+**TryGetValue vs ContainsKey:**
+ContainsKey + access = 2 lookups
+TryGetValue          = 1 lookup (check + retrieve in one step)
+Always prefer TryGetValue when you need the value too.
+
+**GetValueOrDefault:**
+Returns default value of type if key missing.
+`int` → returns 0. `string` → returns null.
+
+### Built
+- `DictionaryBasics.cs` — all operations with complexity labels
+
+### Practiced — Word Frequency Counter (2 versions)
+
+**Version 1 — Dictionary (optimal)**
+```csharp
+if (fc.TryGetValue(word, out int count))
+    fc[word] = count + 1;
+else
+    fc[word] = 1;
+```
+`Time: O(n) | Space: O(n)`
+
+**Version 2 — List (brute force)**
+```csharp
+int idx = list.FindIndex(a => a.Fruit == word);
+if (idx != -1) list[idx].Count++;
+else list.Add(new FruitsCounter { Fruit = word, Count = 1 });
+```
+`Time: O(n²) worst case | Space: O(n)`
+
+**FindIndex is O(m) because:**
+It hides a loop that scans the list from start to end.
+As unique words grow toward n — O(n * m) → O(n²) worst case.
+
+| | Dictionary | List |
+|---|---|---|
+| Time | O(n) | O(n²) worst case |
+| Space | O(n) | O(n) |
+| Interview choice | Optimal | Brute force |
+
+**Trade-off discovered:**
+Using extra memory (Dictionary) → faster time (O(n) not O(n²)).
+This space-for-time trade is the most common pattern in DSA.
+
+**Case Analysis — Bug Found and Fixed:**
+Prime check bug: `if (number % i != 0) break` — wrong.
+One non-divisor does not prove prime. ALL must fail.
+Fix: break only when `% i == 0` (divisor found).
+
+**3 questions to catch bugs before testing:**
+1. What case clearly works?
+2. What case might break?
+3. What is the opposite of my assumption?
+
+**Complexity Calculation — 4 steps:**
+1. Find every loop — count iterations
+2. Find every method — check for hidden loops
+3. Multiply nested, add separate
+4. Keep dominant term, drop constants
+
+### Sorting Covered
+**Bubble Sort** — written and understood.
+`Time: O(n²) | Space: O(1)`
+Applied to string character sorting.
+`i` = pass number. `j` stops at `n-1-pass` — sorted zone grows right to left.
+Early exit optimisation: break if no swaps in a pass.
+
+**Why not use Bubble Sort in production:**
+For 1M elements — Bubble Sort needs ~500B operations.
+Merge Sort needs ~20M. No comparison.
+
+**Freeze Moments:** 0
+
+---
+
+## Revision Session — Between Day 3 and Day 4
+All 8 programs written from memory in under 5 minutes each.
+
+| Program | Time | Notes |
+|---|---|---|
+| Fibonacci | < 5 mins | Variable rotation locked in |
+| Factorial | < 5 mins | Accumulator pattern solid |
+| Reverse Number | < 5 mins | mod + divide + build instinctive |
+| Prime Check | < 5 mins | Boolean flag + break correct |
+| FizzBuzz | < 5 mins | Specific before general — automatic |
+| Sum of Digits | < 5 mins | Same tools as reverse, different operation |
+| Palindrome | < 5 mins | Combines reverse + comparison |
+| Vowel Count | < 5 mins | ToLower + foreach on string directly |
+
+**Observation:** One week ago Fibonacci took 2 hours.
+Today all 8 done in under 40 minutes total from memory.
+This is not memorisation — verified by adapting each program
+to a variation never seen before (consonants, even digits only, all primes to N).
+The patterns are owned, not remembered.
+
+---
+
+## Commitments
+- Minimum viable day: 45 minutes — never zero
+- Re-solve yesterday's program every morning before new content
+- Push to GitHub every single day — no exceptions
+- 5 inputs tested before every push
+- Complexity written in every comment block
