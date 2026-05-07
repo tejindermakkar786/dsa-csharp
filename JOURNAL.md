@@ -225,3 +225,161 @@ The patterns are owned, not remembered.
 - Push to GitHub every single day — no exceptions
 - 5 inputs tested before every push
 - Complexity written in every comment block
+
+
+## Day 4 — SQL Basics
+**Date:** 07-05-2026
+
+---
+
+### What I Learned — Block 1
+
+**SQL is declarative.**
+You say WHAT you want — not HOW to get it.
+The database engine figures out execution.
+
+**Execution Order — memorise this:**
+```sql
+FROM → WHERE → GROUP BY → HAVING → SELECT → ORDER BY
+```
+This is NOT the writing order. It is the order the database runs it.
+Why it matters: you cannot use a SELECT alias in WHERE
+because SELECT runs after WHERE.
+
+**Key concepts covered:**
+
+| Concept | Purpose | Example |
+|---|---|---|
+| SELECT | Choose columns to return | SELECT name, salary |
+| WHERE | Filter rows before grouping | WHERE salary > 50000 |
+| GROUP BY | Group rows for aggregation | GROUP BY department |
+| HAVING | Filter groups after grouping | HAVING COUNT(*) > 3 |
+| ORDER BY | Sort the result | ORDER BY salary DESC |
+| COUNT DISTINCT | Count unique values | COUNT(DISTINCT user_id) |
+| BETWEEN | Range filter inclusive | BETWEEN '2019-06-28' AND '2019-07-27' |
+
+**WHERE vs HAVING:**
+WHERE:  filters individual rows BEFORE grouping
+cannot use aggregate functions
+HAVING: filters groups AFTER grouping
+can use aggregate functions
+
+**NULL handling — critical insight:**
+```sql
+NULL = 2     → returns UNKNOWN → row excluded
+NULL != 2    → returns UNKNOWN → row excluded
+NULL IS NULL → returns TRUE    → row included
+```
+Rule: always add `OR column IS NULL` when excluding a value
+      otherwise NULL rows are silently dropped.
+
+**GROUP BY rule:**
+Ask before writing GROUP BY: what do I want ONE ROW per?
+Only put columns in GROUP BY that define the groups you want.
+Extra columns make groups too granular — wrong result.
+
+---
+
+### What I Built — Block 2
+
+Wrote basic SQL queries on DB Fiddle against sample Employees data:
+
+```sql
+-- Basic SELECT
+SELECT Name, Salary FROM Employees;
+
+-- WHERE filter
+SELECT Name FROM Employees WHERE Salary > 70000;
+
+-- ORDER BY descending
+SELECT Name, Salary FROM Employees ORDER BY Salary DESC;
+
+-- GROUP BY with COUNT
+SELECT Department, COUNT(*) AS EmployeeCount
+FROM Employees GROUP BY Department;
+
+-- HAVING — filter after grouping
+SELECT Department, COUNT(*) AS EmployeeCount
+FROM Employees
+GROUP BY Department
+HAVING COUNT(*) > 2;
+
+-- WHERE vs HAVING together
+SELECT Department, AVG(Salary) AS AvgSalary
+FROM Employees
+WHERE HireDate > '2019-01-01'
+GROUP BY Department
+HAVING AVG(Salary) > 60000;
+```
+
+---
+
+### What I Practiced — Block 3
+
+**5 LeetCode Easy SQL problems solved:**
+
+| # | Problem | Concept | Key Insight |
+|---|---|---|---|
+| #1757 | Recyclable and Low Fat Products | WHERE AND | Both conditions must be true |
+| #595 | Big Countries | WHERE OR | Either condition true |
+| #584 | Find Customer Referee | NULL handling | Must add IS NULL explicitly |
+| #1141 | User Activity Past 30 Days | GROUP BY + COUNT DISTINCT | GROUP BY date only — not session |
+| #620 | Not Boring Movies | WHERE + modulo + ORDER BY | id % 2 = 1 for odd ids |
+
+**Solutions pushed to:** `dsa-csharp/sql/easy/`
+
+---
+
+### Freeze Moment — #1141 User Activity
+
+**What froze me:**
+Added `session_id` to GROUP BY alongside `activity_date`.
+
+**Why it was wrong:**
+Adding session_id created one group per session per day.
+Instead of one row per day — got one row per session.
+COUNT became 1 for every row instead of total users per day.
+
+**The fix:**
+```sql
+-- WRONG — too granular
+GROUP BY activity_date, session_id
+
+-- CORRECT — one row per day
+GROUP BY activity_date
+```
+
+**The rule I learned:**
+Ask: what do I want one row per?
+One row per day → GROUP BY activity_date only.
+COUNT(DISTINCT user_id) handles multiple users within each day.
+session_id was in the table but not needed to define the groups.
+
+**This mistake happens because:**
+Seeing a column in the table makes you think it belongs in GROUP BY.
+It does not. Only columns that define your groups belong there.
+
+---
+
+### What Clicked
+- Execution order explains why WHERE cannot use SELECT aliases
+- NULL compared with = or != always returns UNKNOWN not FALSE
+- GROUP BY only needs columns that define what one row represents
+- COUNT(DISTINCT col) counts unique values within each group
+- BETWEEN is inclusive on both ends
+
+### What Is Still Unclear
+- Nothing major — concepts clear today
+- Will deepen GROUP BY understanding as problems get harder
+
+### Freeze Moments
+1 — GROUP BY on #1141 — added session_id incorrectly
+    Understood why after tracing the grouping logic
+    Will not make this mistake again
+
+### Tomorrow — Day 5
+Encapsulation in C#.
+Going in knowing:
+  A class should control its own data.
+  Outside code should not be able to corrupt internal state.
+  Private fields + public properties is the foundation.
