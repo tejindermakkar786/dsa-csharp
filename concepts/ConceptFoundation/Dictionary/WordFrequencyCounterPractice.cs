@@ -2,23 +2,22 @@ public class WFCPractice
 {
     public void PrintWordFrequency()
     {
-        string[] words = ["apple", "apple", "apple", "apple", "apple", "apple"];
-        Dictionary<string, int> wordsDic = new Dictionary<string, int>();
-        for (int i = 0; i < words.Length; i++)
+        string[] words={"apple","banana","apple","cherry","banana","apple"};
+        Dictionary<string, int> keyValuePairs=new Dictionary<string, int>();
+        foreach (var word in words)
         {
-            if (wordsDic.TryGetValue(words[i], out int count))
+            if(keyValuePairs.TryGetValue(word,out int count))
             {
-                wordsDic[words[i]] = count + 1;
+                keyValuePairs[word]=count+1;
             }
             else
             {
-                wordsDic[words[i]] = 1;
+                keyValuePairs[word]=1;
             }
         }
-
-        foreach (var fc in wordsDic)
+        foreach (var keyValuePair in keyValuePairs)
         {
-            Console.WriteLine($"{fc.Key}:{fc.Value}");
+            Console.WriteLine($"{keyValuePair.Key}:{keyValuePair.Value}");
         }
 
     }

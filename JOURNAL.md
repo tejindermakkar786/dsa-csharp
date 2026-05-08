@@ -377,9 +377,114 @@ It does not. Only columns that define your groups belong there.
     Understood why after tracing the grouping logic
     Will not make this mistake again
 
-### Tomorrow — Day 5
-Encapsulation in C#.
-Going in knowing:
-  A class should control its own data.
-  Outside code should not be able to corrupt internal state.
-  Private fields + public properties is the foundation.
+### Day 5 — Encapsulation in C#
+
+---
+
+### What I Learned — Block 1
+
+**What is Encapsulation?**
+A way of protecting a class's internal members.
+Controls what external sources can access and modify.
+Gives full control over input and output of a class.
+
+**Field vs Property:**
+
+| | Field | Property |
+|---|---|---|
+| What it is | Variable declared inside class | Getter and setter wrapper |
+| Validation | Cannot add validation | Can validate before get/set |
+| Access control | Limited | Full control |
+| Usage | Used inside properties | Exposed to outside safely |
+
+```csharp
+private decimal _balance;        // field — hidden
+public decimal Balance           // property — controlled access
+{
+    get => _balance;
+    set
+    {
+        if (value < 0) throw new ArgumentException("Cannot be negative");
+        _balance = value;
+    }
+}
+```
+
+**What does private mean?**
+Setting access to private means only members of that same class
+can access it. Nothing from outside the class can read or modify it.
+
+**Why hide internal state?**
+To protect the integrity of data and maintain full control over it.
+
+Real example:
+Without encapsulation:
+Anyone can set balance = -99999 directly
+No validation possible
+Data integrity broken
+With encapsulation:
+Balance only changes through Deposit() and Withdraw()
+Both methods validate before changing state
+Invalid operations are rejected
+
+---
+
+### What I Built — Block 2
+`concepts/ConceptFoundation/OOP/Encapsulation.cs`
+
+- BankAccount class with private _balance field
+- Read-only Balance property — get only, no setter
+- Deposit() method — validates amount > 0 before adding
+- Withdraw() method — validates amount <= balance before deducting
+- Verified: setting balance directly from outside does not compile
+
+---
+
+### What I Practiced — Block 3
+
+**StudentGrade class built and tested:**
+- Name set only in constructor — cannot change after
+- Private grades list — outside code cannot add directly
+- AddGrade() validates grade is between 0 and 100
+- Average property calculates from private list — read only
+- Tested: tried to corrupt data from outside — every attempt failed
+
+**Prime numbers up to N — brute force O(n²):**
+
+Bug found during practice:
+Wrong: for (int j = 2; j <= result; j++)
+Right: for (int j = 2; j < i; j++)
+
+Why j < i is correct:
+A number larger than i can never divide i.
+Checking beyond i is wasted work.
+Asked the question: at what point does the inner loop
+become pointless? Answer: when j reaches i.
+
+There was some freezing while writing the solution.
+Fix: asked "does this inner loop need to go all the way?"
+That question revealed j < i without any hints.
+
+---
+
+### What Clicked
+- Field stores data, property controls access to that data
+- Private means class-only access — compiler enforces this
+- Encapsulation is not just hiding data — it is protecting integrity
+- Inner loop limits deserve a question: does it need to go all the way?
+
+### What Is Still Unclear
+- Nothing unclear today — all concepts clicked
+
+### Freeze Moments
+1 — Prime numbers inner loop condition
+    Wrote j <= result instead of j < i
+    Resolved by asking: can j ever divide i when j > i?
+    Answer: no — so j < i is the correct limit
+
+### Tomorrow — Day 6
+Saturday build day.
+Will build StudentRecordSystem combining:
+  Encapsulation (Student class)
+  Dictionary for O(1) lookup (StudentRepository)
+  Console menu with full validation

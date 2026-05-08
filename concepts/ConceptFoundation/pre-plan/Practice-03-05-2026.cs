@@ -2,41 +2,40 @@ public class Practice
 {
     public void PrintFabonacci()
     {
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
-        int a = 0;
-        int b = 1;
-        int c = 0;
+        int a = 0, b = 1, c = 0;
         Console.WriteLine(a);
         Console.WriteLine(b);
-        for (int i = 0; i <= number; i++)
+
+        while (c < result)
         {
-            c = a + b;
-            a = b;
-            b = c;
             Console.WriteLine(c);
+            c = a + b;
+            a = b; b = c;
+
         }
+
     }
 
     public void PrintFactorial()
     {
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
 
         int factorial = 1;
-        for (int i = 1; i <= number; i++)
+        for (int i = 1; i <= result; i++)
         {
             factorial = factorial * i;
         }
-
         Console.WriteLine(factorial);
     }
 
@@ -66,52 +65,75 @@ public class Practice
 
     public void PrintPalindrome()
     {
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
 
-        int reverse = 0;
-        int numberToCheck = number;
-        while (number != 0)
+        int numberToCheck = result;
+        int reverseOfNumber = 0;
+        while (result != 0)
         {
-            int lastDigit = number % 10;
-            number = number / 10;
-            reverse = lastDigit + 10 * reverse;
+            int lastDigit = result % 10;
+            result = result / 10;
+            reverseOfNumber = lastDigit + 10 * reverseOfNumber;
         }
-
-        if (reverse == numberToCheck)
-        {
-            Console.WriteLine("Palindrome");
-        }
-        else
-        {
-            Console.WriteLine("Not Palindrome");
-        }
+        Console.WriteLine(reverseOfNumber == numberToCheck ? "Plaindrome" : "Not Plaindrome");
     }
 
     public void CheckPrimeNumber()
     {
 
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
 
         bool isPrime = true;
-        for (int i = 2; i < number - 1; i++)
+        for (int i = 2; i <= result - 1; i++)
         {
-            if (number % i == 0)
+            if (result % i == 0)
             {
                 isPrime = false;
                 break;
             }
         }
-        Console.WriteLine(isPrime ? "Prime number" : "Not Prime");
+        Console.WriteLine(isPrime);
+
+    }
+
+    public void PrintPrimeNumbers()
+    {
+
+
+        //brute force with O(n^2)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
+        {
+            Console.WriteLine("Please neter valid input");
+            return;
+        }
+
+        for (int i = 2; i <= result; i++) //2,3,4,5,6,7,8,9,10
+        {
+            bool isPrime = true;
+            for (int j = 2; j < i; j++)
+            {
+                if (i % j == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime)
+            {
+                Console.WriteLine(i);
+            }
+        }
 
     }
 
@@ -129,22 +151,18 @@ public class Practice
 
     public void PrintReverseOfNumber()
     {
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
 
         int reverseOfNumber = 0;
-        while (number != 0)
+        while (result != 0)
         {
-            int lastDigit = number % 10;
-            if(lastDigit%2==0)
-            {
-                
-            }
-            number = number / 10;
+            int lastDigit = result % 10;
+            result = result / 10;
             reverseOfNumber = lastDigit + 10 * reverseOfNumber;
         }
 
@@ -153,36 +171,36 @@ public class Practice
 
     public void PrintSumOfDigits()
     {
-        int number = GetUserInput();
-        if (number <= 0)
+        bool isNumber = int.TryParse(Console.ReadLine(), out int result);
+        if (!isNumber || result <= 0)
         {
-            Console.WriteLine("Please enter valid number.");
+            Console.WriteLine("Please neter valid input");
             return;
         }
 
-        int reverseOfNumber = 0;
-        while (number != 0)
+        int sumOfDigits = 0;
+        while (result != 0)
         {
-            int lastDigit = number % 10;
-            number = number / 10;
-            reverseOfNumber = lastDigit + reverseOfNumber;
+            int lastDigit = result % 10;
+            result = result / 10;
+            sumOfDigits = lastDigit + sumOfDigits;
         }
 
-        Console.WriteLine(reverseOfNumber);
+        Console.WriteLine(sumOfDigits);
     }
 
     public void FindLargetNumber()
     {
-        int[] numbers = [3, 5, 6, 1, 2, 10, 34, 21];
-        int largestNumber = numbers[0];
+        int[] numbers = [3, 5, 2, 8, 10, 12, 1, 2, 20];
+        int largestNum = numbers[0];
         for (int i = 0; i < numbers.Length; i++)
         {
-            if (numbers[i] > largestNumber)
+            if (numbers[i] > largestNum)
             {
-                largestNumber = numbers[i];
+                largestNum = numbers[i];
             }
         }
-        Console.WriteLine(largestNumber);
+        Console.WriteLine(largestNum);
     }
 
     public void PrintVowelCount()
@@ -194,11 +212,11 @@ public class Practice
             Console.WriteLine("Please enter valid input");
             return;
         }
-        int count=0;
+        int count = 0;
         for (int i = 0; i < userInput.ToCharArray().Length; i++)
         {
-            char[] chars=userInput.ToCharArray();
-            if(vowels.Contains(chars[i]))
+            char[] chars = userInput.ToCharArray();
+            if (vowels.Contains(chars[i]))
             {
                 count++;
             }

@@ -35,6 +35,13 @@
 // Practice practice=new Practice();
 // practice.PrintFabonacci();
 
+
+// Practice practice=new Practice();
+// practice.CheckPrimeNumber();
+
+// Practice practice=new Practice();
+// practice.PrintPrimeNumbers();
+
 // Practice practice=new Practice();
 // practice.PrintFactorial();
 
@@ -65,5 +72,20 @@
 // VowelsPractice vp=new ();
 // vp.Print();
 
-WFCPractice wFCPractice=new WFCPractice();
-wFCPractice.PrintWordFrequency();
+// WFCPractice wFCPractice=new WFCPractice();
+// wFCPractice.PrintWordFrequency();
+
+// Encapsulation encapsulation=new();
+// // encapsulation.Balance=100;
+// Console.WriteLine(encapsulation.Deposit(100));
+// Console.WriteLine(encapsulation.Deposit(0));
+
+StudentGrade studentGrade = new StudentGrade("John Doe");
+studentGrade.AddGrade(100, "Hindi");
+studentGrade.AddGrade(85, "English");
+studentGrade.AddGrade(90, "Science");
+studentGrade.AddGrade(80, "Maths");
+Console.WriteLine(studentGrade.CalculateAverage());
+
+
+
