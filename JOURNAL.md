@@ -482,9 +482,110 @@ That question revealed j < i without any hints.
     Resolved by asking: can j ever divide i when j > i?
     Answer: no — so j < i is the correct limit
 
-### Tomorrow — Day 6
-Saturday build day.
-Will build StudentRecordSystem combining:
-  Encapsulation (Student class)
-  Dictionary for O(1) lookup (StudentRepository)
-  Console menu with full validation
+---
+
+## Day 6 — Saturday Build Day + First Contest Problem
+**Date:** 09-05-2026
+
+---
+
+### What I Built — StudentRecordSystem
+
+Built a complete console application combining everything from Week 1:
+
+**Classes built:**
+- `Student` — encapsulated class controlling its own data
+- `StudentRepository` — Dictionary-based storage with O(1) lookup
+- `Program` — console menu with full input validation
+
+**Console menu:**
+
+Add Student     → asks for ID and name
+Add Grade       → asks for student ID and grade (0-100)
+View Student    → shows name, all grades, average
+View Top 3      → shows top 3 students by average
+Exit
+
+
+---
+
+### Bugs Found and Fixed
+
+| # | Bug | Fix |
+|---|---|---|
+| 1 | Grades list not encapsulated — anyone could add or clear directly | Made list private and readonly, exposed as IReadOnlyList |
+| 2 | Take(n) before OrderBy — picked random students not top students | Moved OrderByDescending before Take |
+| 3 | Typo in Average property name — Avergae | Fixed to Average |
+| 4 | Unnecessary Student class field at repository level | Removed — used local variables inside methods instead |
+| 5 | Average stored as settable property — could go out of sync | Replaced with calculated property using LINQ Average() |
+
+**Key learning from bugs:**
+private set on List<int> does NOT protect the list contents.
+Anyone can still call .Add() or .Clear() on it.
+IReadOnlyList is the correct way to expose a list safely.
+LINQ order matters:
+Wrong:   Take(n) → OrderBy   — sorts only the randomly picked n
+Correct: OrderBy → Take(n)   — sorts all, then picks top n
+
+---
+
+### What This Project Demonstrates
+Encapsulation:
+Name       — set in constructor only, no setter
+_grades    — private, only AddGrade() can modify
+Average    — calculated property, no setter, always accurate
+Grades     — IReadOnlyList, readable but not modifiable externally
+Dictionary O(1):
+AddStudent  — validates duplicate ID before adding
+AddGrade    — TryGetValue to find student in O(1)
+GetStudent  — TryGetValue with not found handling
+Separation of responsibility:
+Student     — owns and protects its own data
+Repository  — stores and finds students
+Program     — handles user interaction only
+
+---
+
+### First LeetCode Contest Problem
+**Contest:** Weekly Contest 500 (virtual)
+**Problem:** Sum of Primes Between Number and Its Reverse
+**Time taken:** 40 minutes
+**Result:** Solved independently
+
+**Patterns combined:**
+
+| Pattern | Source |
+|---|---|
+| Reverse number | Pre-plan exercise |
+| Prime check | Pre-plan exercise |
+| Range sum accumulator | Pre-plan exercise |
+
+**Key insight:**
+Contest problems combine patterns you already know.
+Not new concepts — new combinations of existing patterns.
+
+**Complexity:**
+Current:   O(range * maxValue)   — inner loop runs up to i
+Optimised: O(range * √maxValue)  — inner loop runs up to √i
+
+**Bugs caught during review:**
+n < 2 better than n == 1 — handles 0 and 1 both
+Console.WriteLine removed from helper method — not needed in contest code
+Math.Sqrt optimisation identified — will apply from Week 3
+
+---
+
+### What Clicked
+- IReadOnlyList is the correct encapsulation for exposing a list
+- LINQ order is critical — OrderBy must always come before Take
+- Contest problems are combinations of patterns already known
+- 40 minutes on Day 7 — target is under 20 minutes by Month 3
+
+### Freeze Moments
+None today — built and debugged independently.
+
+### Tomorrow — Day 7 (Sunday)
+Re-solve all 9 programs from memory — target under 50 minutes total.
+Week 1 JOURNAL review — freeze count, what clicked, what is still unclear.
+StudentRecordSystem README push.
+Preview Week 2: HashSet, Two Pointers, Two Sum, SQL JOINs, Inheritance.

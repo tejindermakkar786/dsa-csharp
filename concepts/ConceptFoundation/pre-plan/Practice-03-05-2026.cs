@@ -224,3 +224,52 @@ public class Practice
         Console.WriteLine(count);
     }
 }
+
+
+public class Solution
+{
+    public int SumOfPrimesInRange(int n)
+    {
+        int reverse = ReverseOfNum(n);
+        int sumOfPrimeNumber = 0;
+        if (reverse < n)
+        {
+            (n, reverse) = (reverse, n);
+        }
+        for (int i = n == 1 ? 2 : n; i <= reverse; i++)
+        {
+            bool isPrime = true;
+            for (int j = 2; j < i; j++)
+            {
+                if (i % j == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+            if (isPrime)
+            {
+                Console.WriteLine(i);
+                sumOfPrimeNumber = i + sumOfPrimeNumber;
+            }
+        }
+
+        return sumOfPrimeNumber;
+    }
+
+    public int ReverseOfNum(int n)
+    {
+        if (n <= 0)
+        {
+            Console.WriteLine("Enter Valid Input");
+        }
+        int reverse = 0;
+        while (n != 0)
+        {
+            int lastDigit = n % 10;
+            n = n / 10;
+            reverse = lastDigit + 10 * reverse;
+        }
+        return reverse;
+    }
+}

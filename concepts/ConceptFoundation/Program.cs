@@ -80,12 +80,15 @@
 // Console.WriteLine(encapsulation.Deposit(100));
 // Console.WriteLine(encapsulation.Deposit(0));
 
-StudentGrade studentGrade = new StudentGrade("John Doe");
-studentGrade.AddGrade(100, "Hindi");
-studentGrade.AddGrade(85, "English");
-studentGrade.AddGrade(90, "Science");
-studentGrade.AddGrade(80, "Maths");
-Console.WriteLine(studentGrade.CalculateAverage());
+// StudentGrade studentGrade = new StudentGrade("John Doe");
+// studentGrade.AddGrade(100, "Hindi");
+// studentGrade.AddGrade(85, "English");
+// studentGrade.AddGrade(90, "Science");
+// studentGrade.AddGrade(80, "Maths");
+// Console.WriteLine(studentGrade.CalculateAverage());
+
+Solution solution=new();
+Console.WriteLine(solution.SumOfPrimesInRange(13));
 
 
 
