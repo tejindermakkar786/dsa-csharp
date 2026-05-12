@@ -584,8 +584,70 @@ Math.Sqrt optimisation identified — will apply from Week 3
 ### Freeze Moments
 None today — built and debugged independently.
 
-### Tomorrow — Day 7 (Sunday)
+### Day 7 (Sunday)
 Re-solve all 9 programs from memory — target under 50 minutes total.
 Week 1 JOURNAL review — freeze count, what clicked, what is still unclear.
 StudentRecordSystem README push.
 Preview Week 2: HashSet, Two Pointers, Two Sum, SQL JOINs, Inheritance.
+
+## Day 8 — HashSet in C#
+**Date:** 11-05-2026
+
+---
+
+### What I Learned
+
+**HashSet vs Dictionary:**
+
+| | HashSet | Dictionary |
+|---|---|---|
+| Stores | Keys only | Key-value pairs |
+| Duplicate keys | Ignored silently | Overwrites existing |
+| Use when | Existence check, uniqueness | Key-based value lookup |
+| Lookup | O(1) | O(1) |
+
+Both use hash table internally. Both O(1) for add, remove, lookup.
+
+**When to use HashSet:** checking existence, removing duplicates, tracking seen elements.
+**When to use Dictionary:** storing data with meaningful key, frequency counting, key-value mapping.
+
+---
+
+### Practiced — LeetCode #217 Contains Duplicate
+
+**Key insight — Add() instead of Contains():**
+```csharp
+// Contains() + Add() = 2 operations
+// Add() alone = 1 operation — returns false if duplicate
+if (!hashset.Add(num)) return true;
+```
+`Time: O(n) | Space: O(n)`
+
+---
+
+### Extra Discoveries
+
+**Object equality — reference vs value:**
+HashSet uses Equals() to compare. Default compares memory address.
+Two objects with same data = different addresses = both added.
+Fix: override Equals() AND GetHashCode() together.
+Rule: always override both — never one without the other.
+
+**Case sensitivity:**
+"Apple" and "apple" treated as different by default.
+Fix: `new HashSet<string>(StringComparer.OrdinalIgnoreCase)`
+
+---
+
+### What Clicked
+- Add() return value tells you if duplicate was found
+- Default object equality is reference-based not value-based
+- Always override Equals AND GetHashCode together
+- StringComparer handles case sensitivity at construction time
+
+### Freeze Moments
+None.
+
+### Tomorrow — Day 9
+Two Pointers pattern — first DSA pattern.
+Two index variables replace nested loops — O(n²) → O(n).
