@@ -87,8 +87,28 @@
 // studentGrade.AddGrade(80, "Maths");
 // Console.WriteLine(studentGrade.CalculateAverage());
 
-Solution solution=new();
-Console.WriteLine(solution.SumOfPrimesInRange(13));
+// Solution solution=new();
+// Console.WriteLine(solution.SumOfPrimesInRange(13));
 
+// Day7Practice day7Practice=new();
+// // day7Practice.PrintFactorial();
+// day7Practice.PrintFabonacci();
+
+// HashsetPractice hashsetPractice=new HashsetPractice();
+// // hashsetPractice.CheckDupilcate();
+
+// hashsetPractice.TestBucketLogic();
+
+// LongChain longChain=new LongChain();
+// longChain.PrintLongNums();
+
+// TwoPointer twoPointer=new ();
+// twoPointer.PrintReverseOfArray();
+
+// ValidPalindrome validPalindrome=new();
+// validPalindrome.CheckPalindrome();
+
+HappyNumber happyNumber=new();
+happyNumber.CheckIfHappy();
 
 

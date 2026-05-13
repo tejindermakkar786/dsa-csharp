@@ -648,6 +648,77 @@ Fix: `new HashSet<string>(StringComparer.OrdinalIgnoreCase)`
 ### Freeze Moments
 None.
 
-### Tomorrow — Day 9
-Two Pointers pattern — first DSA pattern.
-Two index variables replace nested loops — O(n²) → O(n).
+## Day 9 — Two Pointers Pattern
+**Date:** 13-05-2026
+---
+
+### What I Learned
+
+**Two Pointers — the core idea:**
+Instead of one loop scanning everything — two index variables
+work from both ends simultaneously toward each other.
+Converts O(n²) nested loop solutions to O(n).
+
+**When to use Two Pointers:**
+- Comparing elements from both ends of an array or string
+- Finding pairs that meet a condition
+- Searching in a sorted array
+- Reversing elements in place
+
+**How it works:**
+left  starts at index 0        (beginning)
+right starts at index n-1      (end)
+both move inward based on condition
+stop when left >= right        (met or crossed)
+
+**Real scenario:**
+Two people walking toward each other from opposite ends of a street.
+They compare notes as they walk. They stop when they meet.
+One person doing both jobs would take twice as long.
+
+**Complexity:**
+Nested loop: O(n²) — inner loop runs n times for each outer iteration
+Two Pointers: O(n)  — each element visited at most once
+
+---
+
+### What I Built — Block 2
+
+**Reverse an array using Two Pointers:**
+left = 0, right = n-1
+while left < right:
+swap nums[left] and nums[right]
+left++, right--
+`Time: O(n) | Space: O(1) — swapped in place, no extra array`
+
+---
+
+### What I Practiced — Block 3
+
+**Valid Palindrome — LeetCode #125**
+left = 0, right = length-1
+while left < right:
+skip non-alphanumeric characters
+compare chars at left and right (case insensitive)
+if different → not palindrome
+if same → move both inward
+if loop completes → palindrome
+`Time: O(n) | Space: O(1)`
+
+---
+
+### What Clicked
+- Two pointers eliminates the inner loop — each element touched once
+- Pointers stop when they meet or cross — left >= right
+- Works naturally for anything comparing both ends simultaneously
+- Space is O(1) — no extra data structure needed
+
+### Freeze Moments
+None today.
+
+### Tomorrow — Day 10
+Two Sum — first LeetCode DSA problem.
+Going in knowing:
+  Brute force: nested loops check every pair → O(n²)
+  Optimal: HashMap stores complement → O(n)
+  For each number — check if target minus current exists in HashMap
