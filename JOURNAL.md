@@ -719,6 +719,12 @@ None today.
 ### Tomorrow — Day 10
 Two Sum — first LeetCode DSA problem.
 Going in knowing:
-  Brute force: nested loops check every pair → O(n²)
-  Optimal: HashMap stores complement → O(n)
-  For each number — check if target minus current exists in HashMap
+  used brute force by comapring every element with whole array to see any any two numbers sum match with target.
+
+  time complaxity with brute force is o(n^2)
+  
+  then tried hashmap/dictionary by checking if difference exists or not 
+  time complaxity is o(n) because it directly finds the element based on key and we are find the difference using dictionary
+
+  also tried to solve two sum using two pointers approach and found that two sum is also possible using two pointers only if an array is sorted.
+
